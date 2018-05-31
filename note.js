@@ -25,9 +25,9 @@ module.exports = class Note {
     }
 
     getAll() {
-        console.log(`Showing ${this.notes.length} notes:`)
-        console.log('-----------------------------')
         if(this.notes.length > 0){
+            console.log(`Showing ${this.notes.length} note${this.notes.length === 1 ? '' : 's'}`)
+            console.log('-----------------------------')
             this.notes.forEach(el => this.logNote(el))
         }else{
             console.log('No notes available')
