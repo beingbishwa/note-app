@@ -3,10 +3,8 @@ const Note = require('./note')
 
 const argv = yargs.argv
 const inputTask = argv._
-console.log(argv)
 
 const notes = new Note()
-
 
 switch (inputTask[0]) {
     case 'add':
@@ -15,7 +13,7 @@ switch (inputTask[0]) {
         break
 
     case 'list':
-        console.log('Listing notes')
+        notes.getAll()
         break
     
     case 'remove':

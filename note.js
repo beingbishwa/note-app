@@ -21,5 +21,19 @@ module.exports = class Note {
         }
     }
 
+    getAll() {
+        if(this.notes.length > 0){
+            this.notes.forEach(el => this.logNote(el))
+        }else{
+            console.log('No notes available')
+        }
+        
+    }
+
+    _logNote(obj) {
+        console.log(`Title: ${obj.title}`)
+        console.log(`Body: ${obj.body}`)
+        console.log('-----------------------------')
+    }
 
 }
