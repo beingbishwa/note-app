@@ -14,18 +14,19 @@ module.exports = class Note {
         const newNote = {title, body}
         if(this.checkTitle(title)){
             this.notes.push(newNote)
-            try {
-                fs.writeFileSync('notes.json', JSON.stringify(this.notes))   
-                return 'Note successfully added'
-            } catch (error) {
-                return 'Sorry!! An error occured. Try again.'
+            if(this.writeNote()){
+                console.log('Note successfully added')
+            }else{
+                console.log('Sorry!! An error occured. Try again')
             }
         }else{
-            return 'Title already used. No new notes are added'
+            console.log('Title already used. No new notes are added')
         }
     }
 
     getAll() {
+        console.log(`Showing ${this.notes.length} notes:`)
+        console.log('-----------------------------')
         if(this.notes.length > 0){
             this.notes.forEach(el => this.logNote(el))
         }else{
@@ -33,7 +34,21 @@ module.exports = class Note {
         }
     }
 
-    _logNote(obj) {
+    removeNote(title) {
+        const index = this.checkTitle(title)
+        if(index !== -1){
+            this.notes.splice(index, 1)
+            if(this.writeNote()){
+                console.log('Note successfully removed')
+            }else{
+                console.log('Sorry!! An error occured. Try again.')
+            }
+        }else{
+            console.log('Title doesn\'t exist')
+        }
+    }
+
+    logNote(obj) {
         console.log(`Title: ${obj.title}`)
         console.log(`Body: ${obj.body}`)
         console.log('-----------------------------')
@@ -41,7 +56,16 @@ module.exports = class Note {
 
     checkTitle(title) {
         const index = this.notes.findIndex(el => el.title === title)
-        return index === -1
+        return index
+    }
+
+    writeNote() {
+        try {
+            fs.writeFileSync('notes.json', JSON.stringify(this.notes))   
+            return true
+        } catch (error) {
+            return false
+        }
     }
 
 }
