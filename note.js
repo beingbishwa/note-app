@@ -9,4 +9,17 @@ module.exports = class Note {
             this.notes = []
         }
     }
+
+    addNote(title, body) {
+        const newNote = {title, body}
+        this.notes.push(newNote)
+        try {
+            fs.writeFileSync('notes.json', JSON.stringify(this.notes))   
+            return 'Note successfully added'
+        } catch (error) {
+            return 'Sorry!! An error occured. Try again.'
+        }
+    }
+
+
 }
