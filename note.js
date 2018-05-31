@@ -12,12 +12,16 @@ module.exports = class Note {
 
     addNote(title, body) {
         const newNote = {title, body}
-        this.notes.push(newNote)
-        try {
-            fs.writeFileSync('notes.json', JSON.stringify(this.notes))   
-            return 'Note successfully added'
-        } catch (error) {
-            return 'Sorry!! An error occured. Try again.'
+        if(this.checkTitle(title)){
+            this.notes.push(newNote)
+            try {
+                fs.writeFileSync('notes.json', JSON.stringify(this.notes))   
+                return 'Note successfully added'
+            } catch (error) {
+                return 'Sorry!! An error occured. Try again.'
+            }
+        }else{
+            return 'Title already used. No new notes are added'
         }
     }
 
@@ -27,13 +31,17 @@ module.exports = class Note {
         }else{
             console.log('No notes available')
         }
-        
     }
 
     _logNote(obj) {
         console.log(`Title: ${obj.title}`)
         console.log(`Body: ${obj.body}`)
         console.log('-----------------------------')
+    }
+
+    checkTitle(title) {
+        const index = this.notes.findIndex(el => el.title === title)
+        return index === -1
     }
 
 }
