@@ -37,6 +37,10 @@ switch (inputTask[0]) {
         notes.getAll()
         break
     
+    case 'view':
+        notes.viewNote(argv.title)
+        break
+    
     case 'remove':
         notes.removeNote(argv.title)
         break

@@ -34,6 +34,17 @@ module.exports = class Note {
         }
     }
 
+    viewNote(title) {
+        const index = this.checkTitle(title)
+        if(index !== -1){
+            console.log('Loading note')
+            console.log('-----------------------------')
+            this.logNote(this.notes[index])
+        }else{
+            console.log('Title doesn\'t exist')
+        }
+    }
+
     removeNote(title) {
         const index = this.checkTitle(title)
         if(index !== -1){
